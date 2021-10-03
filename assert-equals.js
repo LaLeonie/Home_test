@@ -1,7 +1,16 @@
 const compareArray = (expectedArr, actual) => {
-  if (!Array.isArray(expected)) {
+  if (!Array.isArray(actual)) {
     throw new Error(`No array returned`);
   }
+
+  if (
+    expectedArr.length !== actual.length ||
+    !expectedArr.every((val, i) => val === actual[i])
+  ) {
+    throw new Error(`Incorrect array returned`);
+  }
+
+  return true;
 };
 
 const compareObject = (expectedObj, actual) => {
@@ -11,10 +20,6 @@ const compareObject = (expectedObj, actual) => {
 };
 
 function assertEquals(expect, actual) {
-  if (typeof expect !== typeof actual) {
-    throw new Error(`${expect} and ${actual} are not the same data type`);
-  }
-
   if (Array.isArray(expect)) {
     return compareArray(expect, actual);
   }
