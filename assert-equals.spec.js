@@ -9,8 +9,8 @@ describe("assertEquals", () => {
     });
 
     it("throws error when wrong array is returned", () => {
-      expect(() => assertEquals([1, 2], [3, 4])).toThrowError(
-        "Incorrect array returned"
+      expect(() => assertEquals([1, 2], [1, 4])).toThrowError(
+        "Expected '2' but found '4'"
       );
       expect(() => assertEquals([1, 2], [1, 2, 3])).toThrowError(
         "Expected array length 2 but found 3"

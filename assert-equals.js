@@ -9,8 +9,20 @@ const compareArray = (expectedArr, actual) => {
     );
   }
 
-  if (!expectedArr.every((val, i) => val === actual[i])) {
-    throw new Error(`Incorrect array returned`);
+  const correctValues = [];
+  const incorrectValues = [];
+
+  expectedArr.forEach((val, i) => {
+    if (val !== actual[i]) {
+      correctValues.push(val);
+      incorrectValues.push(actual[i]);
+    }
+  });
+
+  if (incorrectValues.length !== 0) {
+    throw new Error(
+      `Expected '${correctValues.join()}' but found '${incorrectValues.join()}'`
+    );
   }
 
   return true;
