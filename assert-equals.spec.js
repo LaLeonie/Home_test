@@ -8,12 +8,19 @@ describe("assertEquals", () => {
       );
     });
 
+    it("throws error when array of wrong length is returned", () => {
+      expect(() => assertEquals([1, 2], [1, 2, 3])).toThrowError(
+        "Expected array length 2 but found 3"
+      );
+    });
+
     it("throws error when wrong array is returned", () => {
       expect(() => assertEquals([1, 2], [1, 4])).toThrowError(
         "Expected '2' but found '4'"
       );
-      expect(() => assertEquals([1, 2], [1, 2, 3])).toThrowError(
-        "Expected array length 2 but found 3"
+
+      expect(() => assertEquals([1, 2], [3, 4])).toThrowError(
+        "Expected '1,2' but found '3,4'"
       );
     });
 
@@ -59,7 +66,7 @@ describe("assertEquals", () => {
     });
   });
 
-  describe("when numeric types is expected", () => {
+  describe("when numeric type is expected", () => {
     it("throws error when no numeric type is returned", () => {
       expect(() => assertEquals(2, "2")).toThrowError(
         "Expected type number but found type string"
