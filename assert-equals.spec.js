@@ -3,7 +3,9 @@ const assertEquals = require("./assert-equals");
 describe("assertEquals", () => {
   describe("when array is expected", () => {
     it("throws error when no array is returned", () => {
-      expect(() => assertEquals([], "")).toThrowError("No array returned");
+      expect(() => assertEquals([], "")).toThrowError(
+        "Expected array but found"
+      );
     });
 
     it("throws error when wrong array is returned", () => {
@@ -11,7 +13,7 @@ describe("assertEquals", () => {
         "Incorrect array returned"
       );
       expect(() => assertEquals([1, 2], [1, 2, 3])).toThrowError(
-        "Incorrect array returned"
+        "Expected array length 2 but found 3"
       );
     });
 
@@ -24,13 +26,13 @@ describe("assertEquals", () => {
   describe("when string is expected", () => {
     it("throws error when no string is returned", () => {
       expect(() => assertEquals("", [])).toThrowError(
-        "Wrong data type returned"
+        "Expected type string but found type object"
       );
     });
 
     it("throw error when incorrect string is returned", () => {
       expect(() => assertEquals("abc", "def")).toThrowError(
-        "Wrong value returned"
+        "Expected abc but found def"
       );
     });
 
@@ -42,13 +44,13 @@ describe("assertEquals", () => {
   describe("when boolean is expected", () => {
     it("throws error when no boolean is returned", () => {
       expect(() => assertEquals(true, [])).toThrowError(
-        "Wrong data type returned"
+        "Expected type boolean but found type object"
       );
     });
 
     it("throw error when incorrect boolean is returned", () => {
       expect(() => assertEquals(true, false)).toThrowError(
-        "Wrong value returned"
+        "Expected true but found false"
       );
     });
 
@@ -57,28 +59,69 @@ describe("assertEquals", () => {
     });
   });
 
-  describe("when falsy value is expected", () => {
+  describe("when numeric types is expected", () => {
+    it("throws error when no numeric type is returned", () => {
+      expect(() => assertEquals(2, "2")).toThrowError(
+        "Expected type number but found type string"
+      );
+    });
+
+    it("throw error when incorrect number is returned", () => {
+      expect(() => assertEquals(2, 4)).toThrowError("Expected 2 but found 4");
+      expect(() => assertEquals(2, -2)).toThrowError("Expected 2 but found -2");
+      expect(() => assertEquals(1.1, 1.2)).toThrowError(
+        "Expected 1.1 but found 1.2"
+      );
+    });
+
+    it("throw error when incorrect symbolic value is returned", () => {
+      expect(() => assertEquals(Infinity, -Infinity)).toThrowError(
+        "Expected Infinity but found -Infinity"
+      );
+    });
+
+    it("returns true when correct integer is returned", () => {
+      expect(() => assertEquals(2, 2)).toBeTruthy();
+      expect(() => assertEquals(-2, -2)).toBeTruthy();
+    });
+
+    it("returns true when correct float is returned", () => {
+      expect(() => assertEquals(1.1, 1.1)).toBeTruthy();
+    });
+
+    it("returns true when representations of 0 are returned", () => {
+      expect(() => assertEquals(+0, -0)).toBeTruthy();
+    });
+
+    it("returns true when correct symbolic value is returned", () => {
+      expect(() => assertEquals(+Infinity, +Infinity)).toBeTruthy();
+      expect(() => assertEquals(-Infinity, -Infinity)).toBeTruthy();
+      expect(() => assertEquals(NaN, NaN)).toBeTruthy();
+    });
+  });
+
+  describe("when falsy data type is expected", () => {
     it("throws error when null is expected but truthy value is returned", () => {
       expect(() => assertEquals(null, "12")).toThrowError(
-        "Wrong data type returned"
+        "Expected type object but found type string"
       );
     });
 
     it("throws error when undefined is expected but null is returned", () => {
       expect(() => assertEquals(undefined, null)).toThrowError(
-        "Wrong data type returned"
+        "Expected type undefined but found type object"
       );
     });
 
     it("throws error when null is expected but undefined is returned", () => {
       expect(() => assertEquals(null, undefined)).toThrowError(
-        "Wrong data type returned"
+        "Expected type object but found type undefined"
       );
     });
 
-    it("throws error when null is expected but different falsy value is returned", () => {
-      expect(() => assertEquals(null, NaN)).toThrowError(
-        "Wrong data type returned"
+    it("throws error when undefined is expected but different falsy value is returned", () => {
+      expect(() => assertEquals(undefined, NaN)).toThrowError(
+        "Expected type undefined but found type number"
       );
     });
 
@@ -90,10 +133,6 @@ describe("assertEquals", () => {
       expect(() => assertEquals(undefined, undefined)).toBeTruthy();
     });
   });
-
-  describe("when undefined is expected", () => {});
-
-  describe("when BigInt is expected", () => {});
 
   describe("when Symbol is expected", () => {});
 });

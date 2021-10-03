@@ -1,12 +1,15 @@
 const compareArray = (expectedArr, actual) => {
   if (!Array.isArray(actual)) {
-    throw new Error(`No array returned`);
+    throw new Error(`Expected array but found ${typeof actual}`);
   }
 
-  if (
-    expectedArr.length !== actual.length ||
-    !expectedArr.every((val, i) => val === actual[i])
-  ) {
+  if (expectedArr.length !== actual.length) {
+    throw new Error(
+      `Expected array length ${expectedArr.length} but found ${actual.length}`
+    );
+  }
+
+  if (!expectedArr.every((val, i) => val === actual[i])) {
     throw new Error(`Incorrect array returned`);
   }
 
@@ -29,11 +32,13 @@ function assertEquals(expect, actual) {
   }
 
   if (typeof expect !== typeof actual) {
-    throw new Error("Wrong data type returned");
+    throw new Error(
+      `Expected type ${typeof expect} but found type ${typeof actual}`
+    );
   }
 
   if (expect !== actual) {
-    throw new Error("Wrong value returned");
+    throw new Error(`Expected ${expect} but found ${actual}`);
   }
 
   return true;
