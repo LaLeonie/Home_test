@@ -57,11 +57,41 @@ describe("assertEquals", () => {
     });
   });
 
-  describe("when null is expected", () => {});
+  describe("when falsy value is expected", () => {
+    it("throws error when null is expected but truthy value is returned", () => {
+      expect(() => assertEquals(null, "12")).toThrowError(
+        "Wrong data type returned"
+      );
+    });
+
+    it("throws error when undefined is expected but null is returned", () => {
+      expect(() => assertEquals(undefined, null)).toThrowError(
+        "Wrong data type returned"
+      );
+    });
+
+    it("throws error when null is expected but undefined is returned", () => {
+      expect(() => assertEquals(null, undefined)).toThrowError(
+        "Wrong data type returned"
+      );
+    });
+
+    it("throws error when null is expected but different falsy value is returned", () => {
+      expect(() => assertEquals(null, NaN)).toThrowError(
+        "Wrong data type returned"
+      );
+    });
+
+    it("returns true when null is expected and returned", () => {
+      expect(() => assertEquals(null, null)).toBeTruthy();
+    });
+
+    it("returns true when undefined is expected and returned", () => {
+      expect(() => assertEquals(undefined, undefined)).toBeTruthy();
+    });
+  });
 
   describe("when undefined is expected", () => {});
-
-  describe("when string is expected", () => {});
 
   describe("when BigInt is expected", () => {});
 
