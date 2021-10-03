@@ -9,19 +9,19 @@ const compareArray = (expectedArr, actual) => {
     );
   }
 
-  const correctValues = [];
-  const incorrectValues = [];
+  const expectedValues = [];
+  const actualValues = [];
 
   expectedArr.forEach((val, i) => {
     if (val !== actual[i]) {
-      correctValues.push(val);
-      incorrectValues.push(actual[i]);
+      expectedValues.push(val);
+      actualValues.push(actual[i]);
     }
   });
 
-  if (incorrectValues.length !== 0) {
+  if (actualValues.length !== 0) {
     throw new Error(
-      `Expected '${correctValues.join()}' but found '${incorrectValues.join()}'`
+      `Expected '${expectedValues.join()}' but found '${actualValues.join()}'`
     );
   }
 
