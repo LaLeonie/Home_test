@@ -21,7 +21,7 @@ const compareArray = (expectedArr, actual) => {
 
   if (incorrectValues.length !== 0) {
     throw new Error(
-      `Expected ${correctValues.join()} but found ${incorrectValues.join()}`
+      `Expected '${correctValues.join()}' but found '${incorrectValues.join()}'`
     );
   }
 

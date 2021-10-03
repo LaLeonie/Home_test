@@ -48,24 +48,6 @@ describe("assertEquals", () => {
     });
   });
 
-  describe("when boolean is expected", () => {
-    it("throws error when no boolean is returned", () => {
-      expect(() => assertEquals(true, [])).toThrowError(
-        "Expected type boolean but found type object"
-      );
-    });
-
-    it("throw error when incorrect boolean is returned", () => {
-      expect(() => assertEquals(true, false)).toThrowError(
-        "Expected true but found false"
-      );
-    });
-
-    it("returns true when correct boolean is returned", () => {
-      expect(() => assertEquals(true, true)).toBeTruthy();
-    });
-  });
-
   describe("when numeric type is expected", () => {
     it("throws error when no numeric type is returned", () => {
       expect(() => assertEquals(2, "2")).toThrowError(
@@ -107,6 +89,24 @@ describe("assertEquals", () => {
     });
   });
 
+  describe("when boolean is expected", () => {
+    it("throws error when no boolean is returned", () => {
+      expect(() => assertEquals(true, [])).toThrowError(
+        "Expected type boolean but found type object"
+      );
+    });
+
+    it("throw error when incorrect boolean is returned", () => {
+      expect(() => assertEquals(true, false)).toThrowError(
+        "Expected true but found false"
+      );
+    });
+
+    it("returns true when correct boolean is returned", () => {
+      expect(() => assertEquals(true, true)).toBeTruthy();
+    });
+  });
+
   describe("when falsy data type is expected", () => {
     it("throws error when null is expected but truthy value is returned", () => {
       expect(() => assertEquals(null, "12")).toThrowError(
@@ -140,6 +140,4 @@ describe("assertEquals", () => {
       expect(() => assertEquals(undefined, undefined)).toBeTruthy();
     });
   });
-
-  describe("when Symbol is expected", () => {});
 });
