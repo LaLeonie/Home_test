@@ -21,7 +21,7 @@ const compareArray = (expectedArr, actual) => {
 
   if (incorrectValues.length !== 0) {
     throw new Error(
-      `Expected '${correctValues.join()}' but found '${incorrectValues.join()}'`
+      `Expected ${correctValues.join()} but found ${incorrectValues.join()}`
     );
   }
 
@@ -29,9 +29,19 @@ const compareArray = (expectedArr, actual) => {
 };
 
 const compareObject = (expectedObj, actual) => {
-  if (typeof actual !== "object" || Array.isArray(actual) || actual === null) {
-    throw new Error(`No object returned`);
+  if (Array.isArray(actual)) {
+    throw new Error(`Expected type object but found type array`);
   }
+
+  if (actual === null) {
+    throw new Error(`Expected type object but found type null`);
+  }
+
+  if (typeof actual !== object) {
+    throw new Error(`Expected type object but found ${typeof actual}`);
+  }
+
+  //compare objects
 };
 
 function assertEquals(expect, actual) {
