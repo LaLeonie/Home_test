@@ -39,7 +39,23 @@ describe("assertEquals", () => {
     });
   });
 
-  describe("when boolean is expected", () => {});
+  describe("when boolean is expected", () => {
+    it("throws error when no boolean is returned", () => {
+      expect(() => assertEquals(true, [])).toThrowError(
+        "Wrong data type returned"
+      );
+    });
+
+    it("throw error when incorrect boolean is returned", () => {
+      expect(() => assertEquals(true, false)).toThrowError(
+        "Wrong value returned"
+      );
+    });
+
+    it("returns true when correct boolean is returned", () => {
+      expect(() => assertEquals(true, true)).toBeTruthy();
+    });
+  });
 
   describe("when null is expected", () => {});
 
@@ -50,8 +66,4 @@ describe("assertEquals", () => {
   describe("when BigInt is expected", () => {});
 
   describe("when Symbol is expected", () => {});
-
-  describe("when expected and actual are different strings", () => {
-    it.todo("throws an error");
-  });
 });
