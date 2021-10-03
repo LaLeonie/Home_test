@@ -15,7 +15,7 @@ const compareArray = (expectedArr, actual) => {
 
 const compareObject = (expectedObj, actual) => {
   if (typeof actual !== "object" || Array.isArray(actual) || actual === null) {
-    throw new Errow(`No object returned`);
+    throw new Error(`No object returned`);
   }
 };
 
@@ -24,8 +24,16 @@ function assertEquals(expect, actual) {
     return compareArray(expect, actual);
   }
 
-  if (typeof expect === "object" && !Array.isArray(expect) && expect !== null) {
+  if (typeof expect === "object" && expect !== null) {
     return compareObject(expect, actual);
+  }
+
+  if (typeof expect !== typeof actual) {
+    throw new Error("Wrong data type returned");
+  }
+
+  if (expect !== actual) {
+    throw new Error("Wrong value returned");
   }
 
   return true;
